@@ -1,0 +1,118 @@
+<h1>Data binding</h1>
+
+<h2>Desde el modelo hacia el DOM</h2>
+
+<p>
+  Se puede cambiar un contenido usando con el valor del modelo usando interpolación:
+</p>
+<p>
+  Ejemplo interpolación:
+</p>
+<p>
+  <span ngNonBindable>El número es "{{ modelo.numero }}" la cadena es "{{ modelo.cadena}}" </span>)
+</p>
+<p>
+  El número es "{{ modelo.numero }}" y la cadena es "{{ modelo.cadena}}"
+</p>
+
+<p>O se puede cambiar:</p>
+
+<ul>
+  <li>Una propiedad</li>
+  <li>Un estilo</li>
+  <li>Una clase</li>
+  <li>Un atributo</li>
+</ul>
+
+<p>
+  Ejemplo propiedad:
+</p>
+
+<p>
+  <span ngNonBindable>&lt;input [value]=&quot;modelo.propiedad&quot; /&gt;</span>
+</p>
+<p>
+  <input [value]="modelo.propiedad" />
+</p>
+
+<p>
+  Ejemplo estilo
+</p>
+
+<p>
+  &lt;span [style.color]=&quot;modelo.estilo&quot;&gt;Color rojo&lt;/span&gt;
+</p>
+<p>
+  <span [style.color]="modelo.estilo">Color rojo</span>
+</p>
+
+<p>Ejemplo de clase</p>
+
+<p>
+  &lt;button [class]=&quot;modelo.clase&quot;&gt;Bot&oacute;n&lt;/button&gt;
+</p>
+<p>
+  <button [class]="modelo.clase">Botón</button>
+</p>
+
+<h2>Desde el DOM hacia el modelo</h2>
+
+<p>
+  Se hace a través de eventos
+</p>
+
+<p>
+    <button [class]="modelo.clase" (click)="cambiaCadena()">Cambia cadena</button>
+</p>
+
+<p>
+    <input [value]="modelo.propiedad" (keyup)="cambiaCadena($event); muestraTecla($event)"/>
+</p>
+<p>
+  La tecla pulsada es: {{modelo.tecla}}
+</p>
+<p>
+  La cadena ahora vale: {{ modelo.cadena }}
+</p>
+
+<h2>Del modelo al DOM y del DOM al modelo simultaneamente(two-way data binding)</h2>
+
+<p>
+  Forma "enrevesada", usando [] y () simultaneamente
+</p>
+<p>
+  &lt;input [value]=&quot;modelo.localidad&quot; (keyup)=&quot;showLocalidad($event);&quot;/&gt;
+</p>
+<p>
+    <input [value]="modelo.localidad" (keyup)="showLocalidad($event);"/>
+</p>
+<p>
+    Valor localidad:  {{ modelo.localidad }}
+  </p>
+
+<p>
+  Forma adecuada, mediante la directiva NgModel
+</p>
+
+<p>
+  &lt;input [(ngModel)]=&quot;modelo.localidad&quot;/&gt;
+</p>
+<p>
+    <input [(ngModel)]="modelo.localidad"/>
+</p>
+<p>
+  Valor localidad:  {{ modelo.localidad }}
+</p>
+   
+
+<hr/>
+
+<h3>Ejemplo de entrada de usuario para crear una lista</h3>
+<p>
+    <input [value]="modelo.localidad" (keyup)="addLocalidad($event);"/>
+</p>
+<ul>
+  <li *ngFor="let localidad of modelo.localidades">
+    {{ localidad }}
+  </li>
+</ul>
