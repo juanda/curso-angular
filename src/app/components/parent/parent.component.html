@@ -1,0 +1,60 @@
+<h1>Paso de datos entre componentes</h1>
+<p>
+  A continuación metemos un conponente hijo al que le pasamos un 
+  dato, que él recoge mediante un atributo definido como @Input
+</p>
+
+<app-child *ngFor="let hero of heroes" [selectedHero]="hero" (onHeroDeleted)="delete(hero)"></app-child>
+
+
+<h3>*ngFor directo</h3>
+<p *ngFor="let hero of heroes; let i = index">
+  {{i + 1}}. {{hero.name}} : {{hero.power}}
+</p>
+
+<h3>ng-template with ngFor</h3>
+<ng-template ngFor let-hero [ngForOf]= "heroes" let-i="index">
+  <p>{{i + 1}}. {{hero.name}} : {{hero.power}} </p>
+</ng-template>  
+
+<button type="button" (click)="onToggle1()">Toggle</button>
+
+<p *ngIf="toggleFlag1">Hola</p>
+<ng-template [ngIf]="toggleFlag1">
+  <p>Hola</p>
+</ng-template>
+
+
+<input type="radio" name="direction" (click)="myDir='east'">East
+<input type="radio" name="direction" (click)="myDir='west'">West
+<input type="radio" name="direction" (click)="myDir='north'">North
+<input type="radio" name="direction" (click)="myDir='south'">South
+<br/><br/>
+<div [ngSwitch]="myDir">
+    <p *ngSwitchCase="'east'"> Go to <b>East</b> Direction </p>
+    <p *ngSwitchCase="'west'"> Go to <b>West</b> Direction </p>
+    <p *ngSwitchCase="'north'"> Go to <b>North</b> Direction </p>
+    <p *ngSwitchCase="'south'">Go to <b>South</b> Direction </p>
+    <p *ngSwitchDefault> No Direction </p>
+  </div> 
+
+<div [ngSwitch]="myDir">
+  <ng-template [ngSwitchCase]= "'east'"> Go to <b>East</b> Direction </ng-template>
+  <ng-template [ngSwitchCase]= "'west'"> Go to <b>West</b> Direction </ng-template>
+  <ng-template [ngSwitchCase]= "'north'"> Go to <b>North</b> Direction </ng-template>
+  <ng-template [ngSwitchCase]= "'south'">Go to <b>South</b> Direction </ng-template>
+  <ng-template ngSwitchDefault> No Direction </ng-template>
+</div> 
+
+
+<p *appUnless="true" class="unless a">
+    (A) This paragraph is displayed because the condition is false.
+  </p>
+  
+  <p *appUnless="false" class="unless b">
+    (B) Although the condition is true,
+    this paragraph is displayed because appUnless is set to false.
+  </p>
+
+
+
